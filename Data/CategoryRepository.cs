@@ -15,20 +15,6 @@ namespace eu.cdab.GraphQL_Gokhan.Data
         public CategoryRepository(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
-
-            var categories = new List<Category>{
-                new Category()
-                {
-                    Name = "Computers"
-                },
-                new Category()
-                {
-                    Name = "Mobile Phones"
-                }
-            };
-
-            _applicationDbContext.Categories.AddRange(categories);
-            _applicationDbContext.SaveChanges();
         }
 
         public async Task<List<Category>> GetCategoriesAsync()

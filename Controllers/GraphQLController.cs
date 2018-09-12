@@ -23,7 +23,7 @@ namespace eu.cdab.GraphQL_Gokhan.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]GraphQLQuery query)
+        public async Task<IActionResult> PostAsync([FromBody]GraphQLQuery query)
         {
             if (query == null)
             {
