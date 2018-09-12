@@ -31,14 +31,14 @@ namespace eu.cdab.GraphQL_Gokhan.Data
             _applicationDbContext.SaveChanges();
         }
 
-        public Task<List<Category>> GetCategoriesAsync()
+        public async Task<List<Category>> GetCategoriesAsync()
         {
-            return Task.FromResult(_applicationDbContext.Categories.ToList());
+            return await _applicationDbContext.Categories.ToListAsync();
         }
 
-        public Task<Category> GetCategoryAsync(int id)
+        public async Task<Category> GetCategoryAsync(int id)
         {
-            return Task.FromResult(_applicationDbContext.Categories.FirstOrDefault(category => category.Id == id));
+            return await _applicationDbContext.Categories.FindAsync(id);
         }
     }
 }

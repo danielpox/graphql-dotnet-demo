@@ -4,6 +4,8 @@ namespace eu.cdab.GraphQL_Gokhan.Data
     using System.Threading.Tasks;
     using System.Collections.Generic;
 
+    using Microsoft.EntityFrameworkCore;
+
     using eu.cdab.GraphQL_Gokhan.Data;
     using eu.cdab.GraphQL_Gokhan.Models;
 
@@ -43,19 +45,19 @@ namespace eu.cdab.GraphQL_Gokhan.Data
             _applicationDbContext.SaveChanges();
         }
 
-        public Task<Product> GetProductAsync(int id)
+        public async Task<Product> GetProductAsync(int id)
         {
-            return Task.FromResult(_applicationDbContext.Products.FirstOrDefault(product => product.Id == id));
+            return await _applicationDbContext.Products.FindAsync(id);
         }
 
-        public Task<List<Product>> GetProductsAsync()
+        public async Task<List<Product>> GetProductsAsync()
         {
-            return Task.FromResult(_applicationDbContext.Products.ToList());
+            return await _applicationDbContext.Products.ToListAsync();
         }
 
-        public Task<List<Product>> GetProductsByCategoryIdAsync(int categoryId)
+        public async Task<List<Product>> GetProductsByCategoryIdAsync(int categoryId)
         {
-            return Task.FromResult(_applicationDbContext.Products.Where(product => product.CategoryId == categoryId).ToList());
+            return await _applicationDbContext.Products.Where(product => product.CategoryId == categoryId).ToListAsync();
         }
     }
 }
