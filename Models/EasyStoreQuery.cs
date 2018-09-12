@@ -13,7 +13,12 @@ namespace eu.cdab.GraphQL_Gokhan.Models
                 arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id", Description = "Category id" }
                 ),
-                resolve: context => categoryRepository.GetCategoryAsync(context.GetArgument<int>("id")).Result
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+
+                    return categoryRepository.GetCategoryAsync(id).Result;
+                }
             );
 
             Field<ProductType>(
@@ -21,7 +26,12 @@ namespace eu.cdab.GraphQL_Gokhan.Models
                 arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id", Description = "Product id" }
                 ),
-                resolve: context => productRepository.GetProductAsync(context.GetArgument<int>("id")).Result
+                resolve: context =>
+                {
+                    var id = context.GetArgument<int>("id");
+
+                    return productRepository.GetProductAsync(id).Result;
+                }
             );
         }
     }
