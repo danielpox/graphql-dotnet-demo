@@ -4,36 +4,41 @@ namespace eu.cdab.GraphQL_Gokhan.Data
     using System.Threading.Tasks;
     using System.Collections.Generic;
 
+    using Microsoft.EntityFrameworkCore;
+
     using eu.cdab.GraphQL_Gokhan.Models;
 
     public class CategoryRepository : ICategoryRepository
     {
-        private List<Category> _categories;
+        private ApplicationDbContext _applicationDbContext;
 
-        public CategoryRepository()
+        public CategoryRepository(ApplicationDbContext applicationDbContext)
         {
-            _categories = new List<Category>{
+            _applicationDbContext = applicationDbContext;
+
+            var categories = new List<Category>{
                 new Category()
                 {
-                    Id = 1,
                     Name = "Computers"
                 },
                 new Category()
                 {
-                    Id = 2,
                     Name = "Mobile Phones"
                 }
             };
+
+            _applicationDbContext.Categories.AddRange(categories);
+            _applicationDbContext.SaveChanges();
         }
 
         public Task<List<Category>> GetCategoriesAsync()
         {
-            return Task.FromResult(_categories);
+            return Task.FromResult(_applicationDbContext.Categories.ToList());
         }
 
         public Task<Category> GetCategoryAsync(int id)
         {
-            return Task.FromResult(_categories.FirstOrDefault(category => category.Id == id));
+            return Task.FromResult(_applicationDbContext.Categories.FirstOrDefault(category => category.Id == id));
         }
     }
 }

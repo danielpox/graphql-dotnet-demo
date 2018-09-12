@@ -10,6 +10,8 @@
     using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Mvc;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -34,6 +36,8 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddEntityFrameworkInMemoryDatabase().AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("TestDatabase"));
 
             services.AddScoped<EasyStoreQuery>();
 
