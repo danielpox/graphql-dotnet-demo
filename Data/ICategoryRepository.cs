@@ -7,7 +7,7 @@ namespace eu.cdab.GraphQL_Gokhan.Data
 
     public interface ICategoryRepository
     {
-        Task<List<Product>> GetProductsAsync();
+        Task<List<Category>> GetCategoriesAsync();
         Task<Category> GetCategoryAsync(int id);
     }
 }
