@@ -37,14 +37,13 @@
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Create in-memory database
             services.AddEntityFrameworkInMemoryDatabase().AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("TestDatabase"));
 
-            // services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
             services.AddScoped<IDocumentExecuter, DocumentExecuter>();
 
-            // services.AddTransient<EasyStoreQuery>();
             services.AddScoped<EasyStoreQuery>();
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -54,7 +53,6 @@
             services.AddTransient<ProductType>();
 
             services.AddScoped<ISchema>(s => new EasyStoreSchema(new FuncDependencyResolver(type => (IGraphType) s.GetRequiredService(type))));
-            
             // services.AddScoped<ISchema, EasyStoreSchema>();
         }
 
@@ -70,6 +68,7 @@
                 app.UseHsts();
             }
 
+            // Fill database with mock data
             new ApplicationDatabaseInitialiser().SeedAsync(app).GetAwaiter();
 
             app.UseHttpsRedirection();
