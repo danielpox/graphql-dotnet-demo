@@ -12,10 +12,5 @@ namespace eu.cdab.GraphQL_Gokhan.Models
         {
             Query = resolver.Resolve<EasyStoreQuery>();
         }
-
-        // public EasyStoreSchema(Func<Type, GraphType> resolveType) : base(resolveType)
-        // {
-        //     Query = (EasyStoreQuery)resolveType(typeof(EasyStoreQuery));
-        // }
     }
 }

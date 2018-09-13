@@ -1,5 +1,6 @@
 namespace eu.cdab.GraphQL_Gokhan.Models
 {
+    using GraphQL;
     using GraphQL.Types;
 
     using eu.cdab.GraphQL_Gokhan.Data;
@@ -21,6 +22,11 @@ namespace eu.cdab.GraphQL_Gokhan.Models
                 }
             );
 
+            Field<ListGraphType<CategoryType>>(
+                "categories",
+                resolve: context => categoryRepository.GetCategoriesAsync().Result
+            );
+
             Field<ProductType>(
                 "product",
                 arguments: new QueryArguments(
@@ -32,6 +38,11 @@ namespace eu.cdab.GraphQL_Gokhan.Models
 
                     return productRepository.GetProductAsync(id).Result;
                 }
+            );
+
+            Field<ListGraphType<ProductType>>(
+                "products",
+                resolve: context => productRepository.GetProductsAsync().Result
             );
         }
     }
